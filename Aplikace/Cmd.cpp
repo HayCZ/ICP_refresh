@@ -17,8 +17,8 @@ Cmd::~Cmd()
 void Cmd::addCar()
 {
 	std::string manu;
-	std::cout << "Manufacturer: ";
-	std::getline(std::cin,manu);
+	std::cout << "Manufacturer: " <<std::endl;
+	std::getline(std::cin, manu);
 
 	std::string model;
 	std::cout << "Model: ";
@@ -361,12 +361,21 @@ void Cmd::doIt()
 //Pomocná mentoda pro naèítaní int z console
 int Cmd::getIntFromConsole()
 {
-	int choice = 0;
-	while (!(std::cin >> choice)) {
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Invalid input.  Try again: ";
+	while (true)
+	{
+		int choice = 0;
+		std::string data;
+		try
+		{
+			std::getline(std::cin, data);
+			choice = std::stoi(data);
+			return choice;
+		}
+		catch (const std::exception&)
+		{
+			std::cout << "Invalid input.  Try again: ";
+		}
 	}
-	return choice;
+	return 0;
 }
 
